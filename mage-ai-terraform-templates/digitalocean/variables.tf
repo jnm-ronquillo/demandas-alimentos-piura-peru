@@ -17,7 +17,7 @@ variable "cpu" {
 
 variable "memory" {
   description = "Instance memory in GB"
-  default     = "1"
+  default     = "2"
 }
 
 variable "region" {

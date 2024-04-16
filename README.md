@@ -2,11 +2,6 @@
 DE Zoomcamp project about cases of violence against women using data from datosabiertos.gob.pe of Corte Superior de Justicia de Piura
 
 # Deploy Mage to Digitalocean
-Download Mage terraform scripts. 
-
-```bash
-git clone https://github.com/mage-ai/mage-ai-terraform-templates.git
-```
 
 Generate DigitalOcean access token by following the guide: https://developer.hashicorp.com/terraform/tutorials/applications/digitalocean-provider#generate-digitalocean-access-token
 
