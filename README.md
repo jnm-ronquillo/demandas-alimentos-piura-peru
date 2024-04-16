@@ -44,3 +44,4 @@ Run command to start Mage app in :
 ```bash
 docker run -d -p 6789:6789 -v $(pwd):/home/src mageai/mageai /app/run_app.sh mage start default_repo
 ```
+To access Mage using a browser enter the url: http://[IP]:6789
