@@ -49,19 +49,19 @@ IAM & Admin -> Service Accounts
 
 Roles:
 
-Cloud Storage -> Storage Admin
+Cloud Storage -> Storage Admin  
 BigQuery -> BigQuery Admin
 
-Next to the service account created in the actions column
-Select "Manage keys"
-ADD KEY -> Create new key
-Select "JSON"
+Next to the service account created in the actions column  
+Select "Manage keys"  
+ADD KEY -> Create new key  
+Select "JSON"  
 
-On Mage in the pipeline -> alimentos ->Edit pipeline
-Right click in the default_repo -> New file
-Create a new file named key.json
-Copy the contents of the downloaded JSON file to key.json
-Delete the following properties from io_config.yaml file:
+On Mage in the pipeline -> alimentos ->Edit pipeline  
+Right click in the default_repo -> New file  
+Create a new file named key.json  
+Copy the contents of the downloaded JSON file to key.json  
+Delete the following properties from io_config.yaml file:  
 
 ```code
 GOOGLE_SERVICE_ACC_KEY:
