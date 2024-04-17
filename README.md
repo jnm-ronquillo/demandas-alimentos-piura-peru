@@ -148,7 +148,7 @@ OPTIONS (
 ```
 
 ## Init dbt project
-I followed the step 1 and 2 from [Initialization of dbt via Docker](https://janzednicek.cz/en/etl-mage-ai-docker-installation-dbtsqlserver-dbt-debug-error-fix/)  
+I followed the steps 1 and 2 from [Initialization of dbt via Docker](https://janzednicek.cz/en/etl-mage-ai-docker-installation-dbtsqlserver-dbt-debug-error-fix/)  
 
 SSH into the instance
 ```bash
