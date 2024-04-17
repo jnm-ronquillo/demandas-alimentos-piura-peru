@@ -59,7 +59,12 @@ Select "Manage keys"
 ADD KEY -> Create new key  
 Select "JSON"  
 
-On Mage in the pipeline -> alimentos ->Edit pipeline  
+## Import Mage pipeline
+On Mage on Pipelines click + New -> Import pipeline zip  
+Check: Override pipeline files  
+Upload the file pipeline/demandas.zip
+
+On Mage in the pipeline -> demandas ->Edit pipeline  
 Right click in the default_repo -> New file  
 Create a new file named key.json  
 Copy the contents of the downloaded JSON file to key.json  
@@ -120,8 +125,7 @@ terraform plan
 terraform apply
 ```
 
-## Import Mage pipeline
-On Mage on Pipelines click + New -> Import pipeline zip
+## Update Mage pipeline
 
 On Mage in the pipeline -> alimentos ->Edit pipeline  
 In the data exporter step 'upload_date' change the project_id value to the name of the project. For example:
@@ -143,8 +147,82 @@ OPTIONS (
 );
 ```
 
-Run every block in the pipeline one by one starting from the top to the bottom. To Run the dbt step click the ... circle button -> Run model
-.
+## Init dbt project
+I followed the step 1 and 2 from [Initialization of dbt via Docker](https://janzednicek.cz/en/etl-mage-ai-docker-installation-dbtsqlserver-dbt-debug-error-fix/)  
+
+SSH into the instance
+```bash
+ssh -i ~/.ssh/tf-digitalocean root@[IP]
+docker ps
+```
+
+Copy container_id from the previous output
+```bash
+docker exec -it [container_id] bash
+```
+
+```bash
+cd default_repo
+cd dbt
+dbt init dbt_project
+```
+Answer the interactive questions:
+```bash
+Which database would you like to use?  
+[7] bigquery
+Enter a number: 7
+
+[1] oauth
+[2] service_account
+Desired authentication method option (enter a number): 2
+
+keyfile (/path/to/bigquery/keyfile.json): /home/src/default_repo/key.json
+
+project (GCP project id): deproject-420601 (change it)
+
+dataset (the name of your dbt dataset): csjpiura
+
+threads (1 or more): 1
+
+[1] US
+[2] EU
+Desired location option (enter a number): 1
+```
+
+Move profiles.yml to dbt_project/
+```bash
+mv profiles.yml dbt_project/
+```
+
+Test dbt connection
+```bash
+cd dbt_project/
+dbt debug
+```
+
+Run the blocks in the pipeline one by one starting from the top to the bottom. 
+
+## Add dbt Model manually
+On Mage in default_repo expand folder dbt/dbt_project/models
+
+Right click models folder -> Upload files
+
+Upload the folder dbt_models/demandas/
+
+After the last block click the button 'DBT model' -> Single model or snapshot(from file)
+
+- Select category_model.sql  
+
+Connect the dbt model after the block external_table in the Tree panel
+
+Again after the last block click the button 'DBT model' -> Single model or snapshot(from file)
+
+- Select temporal_model.sql  
+
+Connect the last dbt model after the dbt model category_model in the Tree panel
+
+To Run the dbt models click the ... circle button -> Run model
+
 
 ## Destroy resources
 Finally drop the created resources. First manually delete the tables created in the dataset csjpiura on BigQuery. Next run terraform.
@@ -166,3 +244,7 @@ cd ..
 cd mage-ai-terraform-templates/digitalocean
 terraform destroy
 ```
+
+Sometimes terraform fails to delete the ssh key on your digitalocean account. In this case delete the ssh key manually in the following section:
+
+Settings -> Security -> SSH Keys
