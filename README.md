@@ -13,7 +13,7 @@ export DIGITALOCEAN_ACCESS_TOKEN=
 ```bash
 ssh-keygen -t rsa -C "youremail@domain.com" -f ~/.ssh/tf-digitalocean
 ```
-In the file ./digitalocean/variables.tf, update the value of ssh_pub_key to your path of public key.
+In the file mage-ai-terraform-templates/digitalocean/variables.tf, update the value of ssh_pub_key to your path of public key.
 
 ```code
 variable "ssh_pub_key" {
@@ -24,9 +24,9 @@ variable "ssh_pub_key" {
 
 ## Provision resources
 ```bash
-cd digitalocean
-terraform plan
+cd mage-ai-terraform-templates/digitalocean
 terraform init
+terraform plan
 terraform apply
 ```
 Once it’s finished deploying, you can get the IP from the output.
@@ -45,12 +45,12 @@ To access Mage using a browser enter the url: http://[IP]:6789
 
 Create a Service Account 
 
-IAM & Admin -> Service Accounts
-
-Roles:
+IAM & Admin -> Service Accounts  
+Create a new service account with any name and the following Roles:
 
 Cloud Storage -> Storage Admin  
-BigQuery -> BigQuery Admin
+BigQuery -> BigQuery Admin  
+Leave empty: Grant users access to this service account 
 
 Next to the service account created in the actions column  
 Select "Manage keys"  
@@ -81,4 +81,39 @@ And add the path to the key file
 ```code
 # Google
 GOOGLE_SERVICE_ACC_KEY_FILEPATH: "/home/src/default_repo/key.json"
+```
+
+## Provision Google Cloud
+In the file mage-ai-terraform-templates/googlecloud/variables.tf, update the value of the key json file.
+
+```code
+variable "credentials" {
+  description = "My Credentials"
+  default     = "~/.gc/deproject.json"
+}
+```
+
+Update the name of the project
+```code
+variable "project" {
+  description = "Project"
+  default     = "deproject-420601"
+}
+```
+
+Update the name of the bucket (recommended name: project_name + csjpiura)
+```code
+variable "gcs_bucket_name" {
+  description = "My Storage Bucket Name"
+  #Update the below to a unique bucket name
+  default     = "deproject-420601-csjpiura"
+}
+```
+
+## Provision resources on Google Cloud
+```bash
+cd mage-ai-terraform-templates/googlecloud
+terraform init
+terraform plan
+terraform apply
 ```
