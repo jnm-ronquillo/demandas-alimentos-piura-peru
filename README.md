@@ -4,6 +4,7 @@ DE Zoomcamp project about food demands using data from datosabiertos.gob.pe of C
 # Deploy Mage to Digitalocean
 
 Generate DigitalOcean access token by following the guide: https://developer.hashicorp.com/terraform/tutorials/applications/digitalocean-provider#generate-digitalocean-access-token
+Save this access token for later.
 
 ```bash
 export DIGITALOCEAN_ACCESS_TOKEN=
@@ -42,11 +43,12 @@ docker run -d -p 6789:6789 -v $(pwd):/home/src mageai/mageai /app/run_app.sh mag
 To access Mage using a browser enter the url: http://[IP]:6789
 
 ## Create a new Project in Google Cloud Console
+Create a new project with any name for example 'deproject'
 
 Create a Service Account 
 
 IAM & Admin -> Service Accounts  
-Create a new service account with any name and the following Roles:
+Create a new service account with any name for example 'alimentos' and the following Roles:
 
 Cloud Storage -> Storage Admin  
 BigQuery -> BigQuery Admin  
@@ -116,4 +118,51 @@ cd mage-ai-terraform-templates/googlecloud
 terraform init
 terraform plan
 terraform apply
+```
+
+## Import Mage pipeline
+On Mage on Pipelines click + New -> Import pipeline zip
+
+On Mage in the pipeline -> alimentos ->Edit pipeline  
+In the data exporter step 'upload_date' change the project_id value to the name of the project. For example:
+```code
+project_id = 'deproject-420601'
+```
+
+Also change the bucket_name variable. For examlple:
+```code
+bucket_name = 'deproject-420601-csjpiura'
+```
+
+In the data exporter step 'external_table' change the the name of the project and bucket_name value. For example in the following the project name is deproject-420601 and the bucket name is deproject-420601-csjpiura:
+```code
+CREATE OR REPLACE EXTERNAL TABLE `deproject-420601.csjpiura.external_demandas_alimentos`
+OPTIONS (
+  format = 'PARQUET',
+  uris = ['gs://deproject-420601-csjpiura/demandas_alimentos/YEAR=2023/*.parquet']
+);
+```
+
+Run every block in the pipeline one by one starting from the top to the bottom. To Run the dbt step click the ... circle button -> Run model
+.
+
+## Destroy resources
+Finally drop the created resources. First manually delete the tables created in the dataset csjpiura on BigQuery. Next run terraform.
+
+```bash
+cd mage-ai-terraform-templates/googlecloud
+terraform destroy
+```
+
+For digitalocean set the access token:
+
+```bash
+export DIGITALOCEAN_ACCESS_TOKEN=
+```
+
+```bash
+cd ..
+cd ..
+cd mage-ai-terraform-templates/digitalocean
+terraform destroy
 ```
