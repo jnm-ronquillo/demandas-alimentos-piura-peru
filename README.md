@@ -202,7 +202,7 @@ dbt debug
 
 Run the blocks in the pipeline one by one starting from the top to the bottom. 
 
-## Add dbt Model manually
+## Add dbt Models manually
 On Mage in default_repo expand folder dbt/dbt_project/models
 
 Right click models folder -> Upload files
