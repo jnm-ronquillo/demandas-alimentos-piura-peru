@@ -229,6 +229,10 @@ Food demands per month
 
 ![demands per type](https://github.com/jnm-ronquillo/demandas-alimentos-piura-peru/blob/main/img/temporal.png?raw=true)
 
+Food demands presented using [Website](https://dalimentos.pj.gob.pe/cortes/piura/links_demanda) (ELECTRONICO) or in person (FISICO)
+
+![demands presentation](https://github.com/jnm-ronquillo/demandas-alimentos-piura-peru/blob/main/img/category.png?raw=true)
+
 ## Destroy resources
 Finally drop the created resources. First manually delete the tables created in the dataset csjpiura on BigQuery. Next run terraform.
 
