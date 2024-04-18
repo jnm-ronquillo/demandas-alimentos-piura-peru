@@ -227,7 +227,7 @@ To Run the dbt models click the ... circle button -> Run model
 
 Food demands per month
 
-![demands per type]
+![demands per type](https://github.com/jnm-ronquillo/demandas-alimentos-piura-peru/blob/main/img/temporal.png?raw=true)
 
 ## Destroy resources
 Finally drop the created resources. First manually delete the tables created in the dataset csjpiura on BigQuery. Next run terraform.
