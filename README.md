@@ -223,7 +223,7 @@ Connect the last dbt model after the dbt model category_model in the Tree panel
 
 To Run the dbt models click the ... circle button -> Run model
 
-## Locker charts
+## Locker charts year 2023
 
 Food demands per month
 
