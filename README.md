@@ -223,6 +223,11 @@ Connect the last dbt model after the dbt model category_model in the Tree panel
 
 To Run the dbt models click the ... circle button -> Run model
 
+## Locker charts
+
+Food demands per month
+
+![demands per type]
 
 ## Destroy resources
 Finally drop the created resources. First manually delete the tables created in the dataset csjpiura on BigQuery. Next run terraform.
